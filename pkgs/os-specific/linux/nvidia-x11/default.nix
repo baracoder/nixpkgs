@@ -1,6 +1,7 @@
 { lib, callPackage, fetchpatch, fetchurl, stdenv, pkgsi686Linux }:
 
 let
+  generic-v2 = args: (callPackage (import ./generic-v2.nix args)) {};
   generic = args: let
     imported = import ./generic.nix args;
   in if ((!lib.versionOlder args.version "391")
@@ -26,7 +27,7 @@ rec {
     }
     else legacy_390;
 
-  beta = generic {
+  beta = generic-v2 {
     version = "470.42.01";
     sha256_64bit = "04w9nmi3vyww07pmgbd2r1x37s5p6xiy4qg9s06a1kjwzpm59xfd";
     settingsSha256 = "Ohbkm7j0/V0kzcxfsHujBkrdnaefneoLutf2Rju2hIQ=";
